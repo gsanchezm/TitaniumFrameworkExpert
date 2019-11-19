@@ -1,9 +1,14 @@
 package com.titanium.framework.controls.internals;
 
+import com.titanium.framework.base.DriverFactory;
+import com.titanium.framework.utils.SeleniumUtils;
+import com.titanium.framework.utils.WaitUtil;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Coordinates;
 
 import java.util.List;
+
+import static com.titanium.framework.utils.LogUtil.info;
 
 public class ControlBase implements Control {
     private final WebElement element;
@@ -105,5 +110,82 @@ public class ControlBase implements Control {
     @Override
     public WebElement getWrappedElement() {
         return element;
+    }
+
+    @Override
+    public ControlBase waitFor() {
+        WaitUtil.sync();
+        return this;
+    }
+
+    @Override
+    public ControlBase waitForVisible() {
+        WaitUtil.waitForElementVisible(getWrappedElement());
+        return this;
+    }
+
+    @Override
+    public ControlBase scrollUp() {
+        try {
+            JavascriptExecutor jse = (JavascriptExecutor) DriverFactory.getInstance().getDriver();
+            jse.executeScript("window.scrollBy(0,-250)", "");
+            info("Scroll executed!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    @Override
+    public ControlBase scrollDown() {
+        try {
+            JavascriptExecutor jse = (JavascriptExecutor) DriverFactory.getInstance().getDriver();
+            jse.executeScript("window.scrollBy(0,250)", "");
+            info("Scroll executed!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    @Override
+    public ControlBase scrollToElement() {
+        try {
+            JavascriptExecutor jse = (JavascriptExecutor) DriverFactory.getInstance().getDriver();
+            jse.executeScript("arguments[0].scrollIntoView(true);", getWrappedElement());
+            info("Scroll executed!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+    // Get the value from textbox
+    @Override
+    public String getElementText(){
+        SeleniumUtils.highLight(getWrappedElement());
+        return getText();
+    }
+
+    // Type text in textbox
+    @Override
+    public ControlBase enterText(String text) {
+        SeleniumUtils.highLight(getWrappedElement());
+        clear();
+        sendKeys(text);
+        return this;
+    }
+
+    // Perform a click on a button
+    @Override
+    public void performClick() {
+        SeleniumUtils.highLight(getWrappedElement());
+        click();
+    }
+
+    // Perform a click an submit a form when the input type is submit
+    @Override
+    public void performSubmit() {
+        SeleniumUtils.highLight(getWrappedElement());
+        submit();
     }
 }

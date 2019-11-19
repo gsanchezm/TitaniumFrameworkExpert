@@ -12,20 +12,4 @@ public class TextBoxBase extends ControlBase implements TextBox {
     public TextBoxBase(WebElement element) {
         super(element);
     }
-
-    // Type text in textbox
-    @Override
-    public void enterText(String text) {
-        SeleniumUtils.highLight(getWrappedElement());
-        clear();
-        sendKeys(text);
-
-    }
-
-    // Get the value from textbox
-    @Override
-    public String getTextValue() {
-        SeleniumUtils.highLight(getWrappedElement());
-        return getText();
-    }
 }

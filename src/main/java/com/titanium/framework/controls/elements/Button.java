@@ -9,12 +9,6 @@ import com.titanium.framework.controls.internals.Control;
  */
 @ImplementedBy(ButtonBase.class)
 public interface Button extends Control {
-    // Perform a click on a button
-    void performClick();
-    // Get button text
-    String getButtonText();
-    // Perform a click an submit a form when the input type is submit
-    void performSubmit();
     // Verify if a button is enabled or not
     boolean getButtonIsEnabled();
 }

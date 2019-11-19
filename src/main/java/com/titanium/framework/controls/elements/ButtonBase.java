@@ -13,30 +13,11 @@ public class ButtonBase extends ControlBase implements Button  {
         super(element);
     }
 
-    // Perform a click on a button
-    @Override
-    public void performClick() {
-        SeleniumUtils.highLight(getWrappedElement());
-        click();
-    }
-
-    // Get button text
-    @Override
-    public String getButtonText() {
-        SeleniumUtils.highLight(getWrappedElement());
-        return getText();
-    }
-
-    // Perform a click an submit a form when the input type is submit
-    @Override
-    public void performSubmit() {
-        SeleniumUtils.highLight(getWrappedElement());
-        submit();
-    }
-
     // Verify if a button is enabled or not
     @Override
     public boolean getButtonIsEnabled() {
         return isEnabled();
     }
+
+
 }

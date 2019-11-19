@@ -1,4 +1,4 @@
-package com.titanium.test;
+package test;
 
 import com.titanium.framework.utils.LogUtil;
 
